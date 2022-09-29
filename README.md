@@ -8,4 +8,6 @@ Integrantes - Davi Severo Santana - Erick Pernambuco - Gabriel Amaro.
 
 Mapa mental da API:
 
-![Mapa mental da API](/home/esp/Documentos/api.png)
+
+
+![](https://github.com/DaviSevero1/Projeto-BackEnd/blob/main/api.png)
