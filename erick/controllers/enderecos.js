@@ -64,7 +64,7 @@ function listar (req, res,next) {
         
     }
 
-    pedidos.push(novoEndereco);
+    enderecos.push(novoEndereco);
     res.status(201).json(novoEndereco);
   }
   
@@ -84,7 +84,7 @@ function listar (req, res,next) {
         enderecoLocalizado.cep = req.body.cep,
         enderecoLocalizado.tipo_residencia = req.body.tipo_residencia,
         enderecoLocalizado.complento =  req.body.complento,
-    res.status(204).json(enderecoLocalizado).end();
+    res.status(204).json(enderecoLocalizado);
   
   }
 

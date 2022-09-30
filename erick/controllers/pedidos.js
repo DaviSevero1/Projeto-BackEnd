@@ -40,25 +40,23 @@ function criar (req, res, next) {
     }
 
     pedidos.push(novoPedido);
-    res.status(201).json(novoPedido).end();
+    res.status(201).json(novoPedido);
 }
 
 function atualizar(req, res, next) {
-  const pedidosLocalizado = pedidos.find(pedido => pedido.id === Number(req.params.id));
-  if(!pedidosLocalizado)
-  {
-      return res.status(404).json({msg:"Não encontrado"});
-  }
+    const pedidoLocalizado = pedidos.find(pedido => pedido.id === Number(req.params.id));
+    if(!pedidoLocalizado)
+    {
+        return res.status(404).json("Não encontrado");
+    }
   
-  
-  pedidosLocalizado.id = req.body.id,
-  pedidosLocalizado.cliente_id = req.body.cliente_id,
-  pedidosLocalizado.cliente_telefone = req.body.cliente_telefone,
-  pedidosLocalizado.endereco_id =  req.body.endereco_id,
-  pedidosLocalizado.carrinho_id = req.body.carrinho_id,
-  pedidosLocalizado.carrinho_valor = req.body.carrinho_valor,
+  pedidoLocalizado.cliente_id = req.body.cliente_id,
+  pedidoLocalizado.cliente_telefone = req.body.cliente_telefone,
+  pedidoLocalizado.endereco_id =  req.body.endereco_id,
+  pedidoLocalizado.carrinho_id = req.body.carrinho_id,
+  pedidoLocalizado.carrinho_valor = req.body.carrinho_valor,
     
-  res.status(204).end();
+  res.status(204).json(pedidoLocalizado);
 
 }
 function remover(req, res, next) {

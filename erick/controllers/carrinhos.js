@@ -58,53 +58,12 @@ function listar (req, res,next) {
           id : carrinhos[carrinhos.length-1].id+1,
           cliente_id : req.body.cliente_id,
           carrinho_valor:req.body.carrinho_valor,
-          lista_produtos:[
-            {
-                produtos_id :req.body.lista_produtos[produtos_id],
-                produtos_nome : req.body.lista_produtos[produtos_nome],
-                produtos_valor : req.body.lista_produtos[produtos_valor],
-            }
-        ]
+          lista_produtos:req.body.lista_produtos
       }
   
       carrinhos.push(novoCarrinhos);
       res.status(201).json(novoCarrinhos);
-  }
-  function listar (req, res,next) {
-    res.json(carrinhos);
-  }
-  
-  function localizar (req, res,next) {
-      const encontrado = carrinhos.find(carrinho => carrinho.id === Number(req.params.id));
-  
-      if(!encontrado)
-      {
-          return res.status(404).json({msg:"Não encontrado"});
-      }
-      res.json(encontrado);
-  }
-  function criar (req, res, next) {
-    const novoCarrinho ={
-
-        
-            id: carrinhos[carrinhos.length-1].id+1,
-            cliente_id : req.body.cliente_id,
-            carrinho_valor : req.body.carrinho_valor,
-            lista_produtos:[
-                {
-                    produtos_id :req.body.produtos_id,
-                    produtos_nome : req.body.produtos_nome,
-                    produtos_valor : req.body.produtos_valor
-                }
-                
-            ]
-        
-    }
-
-    carrinhos.push(novoCarrinho);
-    res.status(201).json(novoCarrinho);
-  }
-  
+  } 
   function atualizar(req, res, next) {
     const carrinhoLocalizado = carrinhos.find(carrinho => carrinho.id === Number(req.params.id));
     if(!carrinhoLocalizado)
@@ -112,15 +71,10 @@ function listar (req, res,next) {
         return res.status(404).json({msg:"Não encontrado"});
     }
     
-    carrinhoLocalizado.cliente_id = req.body.cliente_id,
+        carrinhoLocalizado.cliente_id = req.body.cliente_id,
         carrinhoLocalizado.carrinho_valor = req.body.carrinho_valor,
-        carrinhoLocalizado.lista_produtos = [
-            {
-                produtos_id : req.body.produtos_id,
-                produtos_nome : req.body.produtos_nome,
-                produtos_valor : req.body.produtos_valor,
-            }
-        ]
+        carrinhoLocalizado.lista_produtos = [...req.body.lista_produtos]
+           
       
     res.status(204).end();
   

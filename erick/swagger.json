@@ -78,13 +78,22 @@
             "required": true
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Clientes"
+              }
+            }
+          }
+        },
         "responses": {
           "204": {
             "description": "Sucesso",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Cliente"
+                  "$ref": "#/components/schemas/Clientes"
                 }
               }
             }
@@ -180,6 +189,15 @@
             "required": true
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Enderecos"
+              }
+            }
+          }
+        },
         "responses": {
           "204": {
             "description": "Sucesso",
@@ -280,7 +298,7 @@
         }
       },
       "put": {
-        "description": "Atualisa um pedido",
+        "description": "Atualisa um carrinho",
         "parameters": [
           {
             "name": "id",
@@ -288,6 +306,15 @@
             "required": true
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Carrinhos"
+              }
+            }
+          }
+        },
         "responses": {
           "204": {
             "description": "Sucesso",
@@ -393,6 +420,15 @@
             "required": true
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Produtos"
+              }
+            }
+          }
+        },
         "responses": {
           "204": {
             "description": "Sucesso",
@@ -495,6 +531,15 @@
             "required": true
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Pedidos"
+              }
+            }
+          }
+        },
         "responses": {
           "204": {
             "description": "Sucesso",
@@ -611,21 +656,25 @@
             "example": 230.55
           },
           "lista_produtos": {
-            "type": "object",
-            "properties": {
-              "produtos_id": {
-                "type": "number",
-                "example": 1
-              },
-              "produtos_nome": {
-                "type": "string",
-                "example": "memoria ram"
-              },
-              "produtos_valor": {
-                "type": "number",
-                "example": 150.35
+            "type": "array",
+            "items":{
+              "type":"object",
+              "properties": {
+                "produtos_id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "produtos_nome": {
+                  "type": "string",
+                  "example": "memoria ram"
+                },
+                "produtos_valor": {
+                  "type": "number",
+                  "example": 150.35
+                }
               }
             }
+            
           }
         }
       },
