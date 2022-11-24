@@ -1,92 +1,88 @@
-let carrinhos = [
-    {
-        id:1,
-        cliente_id : 1,
-        carrinho_valor : 230.55,
-        lista_produtos:[
-            {
-                produtos_id :1,
-                produtos_nome : "memoria ram",
-                produtos_valor : 150.35
-            },
-            {
-                produtos_id :2,
-                produtos_nome : "mouse wifi",
-                produtos_valor : 80.00
-            },
-            
-        ]
-    },
-    {
-        id:2,
-        cliente_id: 2,
-        carrinho_valor:450.35,
-        lista_produtos:[
-            {
-                produtos_id :1,
-                produtos_nome : "memoria ram",
-                produtos_valor : 150.35
-            },
-            {
-                produtos_id :1,
-                produtos_nome : "memoria ram",
-                produtos_valor : 150.35
-            },
-            {
-                produtos_id :3,
-                produtos_nome : "teclado wifi",
-                produtos_valor : 230.65
-            }
-        ]
-    }
-];
-function listar (req, res,next) {
-    res.json(carrinhos);
-  }
-  
-  function localizar (req, res,next) {
-      const encontrado = carrinhos.find(carrinho => carrinho.id === Number(req.params.id));
-  
-      if(!encontrado)
-      {
-          return res.status(404).json({msg:"Não encontrado"});
-      }
-      res.json(encontrado);
-  }
-  function criar (req, res, next) {
-      const novoCarrinhos ={
-          id : carrinhos[carrinhos.length-1].id+1,
-          cliente_id : req.body.cliente_id,
-          carrinho_valor:req.body.carrinho_valor,
-          lista_produtos:req.body.lista_produtos
-      }
-  
-      carrinhos.push(novoCarrinhos);
-      res.status(201).json(novoCarrinhos);
-  } 
-  function atualizar(req, res, next) {
-    const carrinhoLocalizado = carrinhos.find(carrinho => carrinho.id === Number(req.params.id));
-    if(!carrinhoLocalizado)
-    {
-        return res.status(404).json({msg:"Não encontrado"});
-    }
-    
-        carrinhoLocalizado.cliente_id = req.body.cliente_id,
-        carrinhoLocalizado.carrinho_valor = req.body.carrinho_valor,
-        carrinhoLocalizado.lista_produtos = [...req.body.lista_produtos]
-           
-      
-    res.status(204).end();
-  
-  }
-  function remover(req, res, next) {
-    const localizado = carrinhos.findIndex(carrinho => carrinho.id === Number(req.params.id));
-    if(localizado < 0){
-        return res.status(404).json("Endereço Não Localizado");
-    }
-    carrinhos.splice(localizado, 1);
-    
-    res.status(204).end();  ;  
+const { ObjectID } = require('bson');
+const { PromiseProvider } = require('mongoose');
+const Carrinho = require("../models/carrinhoModel");
+const Produto = require("../models/produtosModel");
+
+
+async  function listar(req,res){
+    await Carrinho.find({})
+    .then(carrinhos => {return res.json(carrinhos)})
+    .catch( error => {return res.status(500).json(error)});
+        
+};
+
+
+
+async function consultar(req,res){
+    await Carrinho.findOne({_id: ObjectID(req.params.id)})
+    .then(carrinho => {
+        if(carrinho) return res.json(carrinho);
+        else return res.status(404).json('Carrinho Não Localizado');
+    })
+    .catch(error => {return res.status(500).json(error) });
+};
+
+async function criar (req, res){
+    const carrinho =  new Carrinho(req.body);
+    await carrinho.save()
+    .then (doc => {
+        return res.status(201).json(doc);
+    })
+    .catch(error => {
+        const msgErro = {};
+        Object.values(error.errors).forEach(({properties}) => {
+            msgErro[properties.path] = properties.message;
+        });
+        return res.status(422).json(msgErro);
+})
 }
-  
-  module.exports = { listar, localizar, criar, atualizar,remover}
+
+async function atualizar(req,res){
+
+    await Carrinho.findOneAndUpdate({_id:ObjectID(req.params.id)},req.body, {runValidators : true})
+    .then(carrinho => {
+        if(carrinho) {return res.status(204).end()}
+        else{ return res.status(404).json("Carrinho não localizado")};
+    })
+    .catch(error => {
+        const msgErro = {};
+        Object.values(erro.errors).forEach(({properties}) => {
+            msgErro[properties.path] = properties.message;
+        });
+        return res.status(422).json(msgErro);
+    });
+
+};
+
+async function adicionar(req,res){
+
+    await Carrinho.findOne({_id: ObjectID(req.params.id)})
+    .then(carrinho => {
+        
+        Produto.findOne({_id: ObjectID(req.params.id_Produto)})
+        .then(produto => {
+            if(produto){ 
+                carrinho.lista_produtos.push(produto._id);
+                carrinho.save().then(doc =>{
+                    return res.json(doc)}
+                )
+            }
+            else return res.status(404).json('Carrinho Não Localizado');
+        })
+        .catch(error => {return res.status(500).json(error) });
+    })
+    .catch(error => {return res.status(500).json(error) });
+    
+};
+
+
+async function remover(req,res){
+    await Carrinho.findOneAndDelete({_id: ObjectID(req.params.id) })
+    .then(carrinho => {
+        if(carrinho) return res.status(204).end();
+        else return res.status(404).json('CarrinhoNão localizado'); 
+    })
+    .catch (error => {return res.status(500).json (error) });
+};
+
+module.exports = {listar, consultar, adicionar, criar, atualizar, remover};

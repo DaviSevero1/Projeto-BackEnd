@@ -6,7 +6,7 @@ const routes = express.Router();
 routes.get("/produtos", productControllers.listar);
 
 // Consultar um unico produto
-routes.get("/produtos/:id", productControllers.exibir);
+routes.get("/produtos/:id", productControllers.consultar);
 
 // Cadastrar produtos
 routes.post("/produtos", productControllers.criar);
@@ -15,7 +15,7 @@ routes.post("/produtos", productControllers.criar);
 routes.put("/produtos/:id", productControllers.atualizar);
 
 // Deletar produtos
-routes.delete("/produtos/:id", productControllers.deletar);
+routes.delete("/produtos/:id", productControllers.remover);
 
 
 

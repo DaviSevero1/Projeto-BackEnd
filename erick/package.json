@@ -29,6 +29,9 @@
     "create-error": "^0.3.1",
     "file-system": "^2.2.2",
     "fs": "^0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^4.12.0",
+    "mongoose": "^6.7.3",
     "swagger-json": "^2.0.0",
     "swagger-ui-express": "^4.5.0",
     "uuidv4": "^6.2.13"

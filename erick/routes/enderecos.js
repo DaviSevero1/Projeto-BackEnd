@@ -8,7 +8,7 @@ const router = express.Router();
 router.get("/enderecos", controllers.listar);
 
 // Consultar um unico produto
-router.get("/enderecos/:id", controllers.localizar);
+router.get("/enderecos/:id", controllers.consultar);
 
 // Cadastrar produtos
 router.post("/enderecos", controllers.criar);

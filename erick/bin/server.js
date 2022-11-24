@@ -1,7 +1,11 @@
 const app = require('../app')
+const mongoose = require('mongoose');
+const config = require('../config/env.json')
 
-
-// renderizar em uma porta localhost
-     app.listen(3000, () => {
-     console.log("rodando");
- });
+mongoose.connect(config.url)
+                .then(app.listen(config.porta,() => {
+                    console.log("Rodando");
+                }))
+                .catch(erro => {
+                    console.log("Não esta rodando");
+                });
