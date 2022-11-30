@@ -1,21 +1,23 @@
 const express = require("express");
 const controllers = require('../controllers/enderecos');
+const autenticar = require('../middlewares/authMiddleware');
+
 const router = express.Router();
 
 
+// rota pra listar os endereco
+router.get("/clientes/:id/enderecos", autenticar, controllers.listar);
 
-// rota pra listar os produtos
-router.get("/enderecos", controllers.listar);
+// Consultar um unico endereco
+router.get("/clientes/:id/enderecos/:id",  autenticar, controllers.consultar);
 
-// Consultar um unico produto
-router.get("/enderecos/:id", controllers.consultar);
+// Criar endereco
+router.post("/clientes/:id/enderecos",  autenticar, controllers.criar);
 
-// Cadastrar produtos
-router.post("/enderecos", controllers.criar);
+// Atualizar endereco
+router.put("/clientes/:id/enderecos/:id", autenticar, controllers.atualizar);
 
-// Atualizar produto
-router.put("/enderecos/:id", controllers.atualizar);
+// Deletar endereco
+router.delete("/clientes/:id/enderecos/:id", autenticar,controllers.remover);
 
-// Deletar produtos
-router.delete("/enderecos/:id", controllers.remover);
 module.exports = router;

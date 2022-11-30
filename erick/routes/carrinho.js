@@ -1,24 +1,25 @@
 const express = require("express");
 const controllers = require('../controllers/carrinhos');
+const autenticar = require('../middlewares/authMiddleware');
+
 const router = express.Router();
-const autentica = require('../middlewares/authMiddleware');
 
 
-// rota pra listar os produtos
-router.get("/carrinhos", controllers.listar);
+// rota pra listar os carrinhos
+router.get("/carrinhos", autenticar, controllers.listar);
 
-// Consultar um unico produto
-router.get("/carrinhos/:id",  controllers.consultar);
+// Consultar um unico carrinho
+router.get("/carrinhos/:id",  autenticar, controllers.consultar);
 
-// Cadastrar produtos
-router.post("/carrinhos",  controllers.criar);
+// Criar carrinho
+router.post("/carrinhos",  autenticar, controllers.criar);
 
 //Adicionar ao carrinho
-router.put("/carrinhos/:id/adicionar/:id_Produto", controllers.adicionar);
+router.put("/carrinhos/:id_carrinho/adicionar/:id_Produto", autenticar, controllers.adicionar);
 
-// Atualizar produto
-router.put("/carrinhos/:id", controllers.atualizar);
+// Atualizar carrinho
+router.put("/carrinhos/:id", autenticar, controllers.atualizar);
 
-// Deletar produtos
-router.delete("/carrinhos/:id", autentica,controllers.remover);
+// Deletar carrinho
+router.delete("/carrinhos/:id", autenticar,controllers.remover);
 module.exports = router;

@@ -1,5 +1,7 @@
 const express = require("express");
 const productControllers = require('../controllers/controllerProdutos');
+const autenticar = require("../middlewares/authMiddleware")
+
 const routes = express.Router();
 
 // rota pra listar os produtos
@@ -9,13 +11,13 @@ routes.get("/produtos", productControllers.listar);
 routes.get("/produtos/:id", productControllers.consultar);
 
 // Cadastrar produtos
-routes.post("/produtos", productControllers.criar);
+routes.post("/admin/:id/produtos", productControllers.criar);
 
 // Atualizar produto
-routes.put("/produtos/:id", productControllers.atualizar);
+routes.put("/admin/:id/produtos/:id", productControllers.atualizar);
 
 // Deletar produtos
-routes.delete("/produtos/:id", productControllers.remover);
+routes.delete("/admin/:id/produtos/:id", productControllers.remover);
 
 
 

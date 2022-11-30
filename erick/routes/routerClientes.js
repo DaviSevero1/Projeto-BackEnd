@@ -1,15 +1,26 @@
-var express = require('express');
-const clienteController = require('../controllers/controllerCliente')
-var router = express.Router();
+const express = require("express");
+const controller = require('../controllers/clienteController');
+const autentica = require('../middlewares/authMiddleware');
 
-router.get('/clientes', clienteController.listar);
+const router = express.Router();
 
-router.get('/clientes/:id',clienteController.exibir)
-//cria um contato
-  router.post('/clientes', clienteController.criar);
-//altera um contato
-  router.put('/clientes/:id',clienteController.atualizar )
-//deletar um contato
-  router.delete('/clientes/:id',clienteController.deletar )
+//listar todos os clientes
+router.get('/admin/:id/clientes', autentica, controller.listar);
+
+// consultar um cliente por id
+router.get('/clientes/:id',autentica, controller.consultar);
+
+//registrar um cliente
+  router.post('/clientes', controller.registrar);
+
+//logar um cliente
+  router.post('/clientes/login', controller.login);
+
+//altera um cliente
+  router.put('/clientes/:id', autentica, controller.atualizar );
+
+//deletar um cliente
+  router.delete('/clientes/:id', autentica,controller.remover);
+
 
   module.exports = router;

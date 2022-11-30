@@ -122,7 +122,7 @@
         }
       }
     },
-    "/enderecos": {
+    "/clientes/enderecos": {
       "get": {
         "description": "lista de itens em um Endereco",
         "responses": {
@@ -154,7 +154,7 @@
         }
       }
     },
-    "/enderecos/{id}": {
+    "/clientes/enderecos/{id}": {
       "description": "Exibe Endereco ID",
       "get": {
         "parameters": [
@@ -236,7 +236,7 @@
         }
       }
     },
-    "/carrinhos": {
+    "/clientes/carrinhos": {
       "get": {
         "description": "lista de itens em um Carrinho",
         "responses": {
@@ -271,7 +271,7 @@
         }
       }
     },
-    "/carrinhos/{id}": {
+    "/clientes/carrinhos/{id}": {
       "get": {
         "description": "Exibe Carrinho ID",
         "parameters": [
@@ -464,7 +464,7 @@
         }
       }
     },
-    "/pedidos": {
+    "/clientes/pedidos": {
       "get": {
         "description": "lista de itens em um pedido",
         "responses": {
@@ -496,7 +496,7 @@
         }
       }
     },
-    "/pedidos/{id}": {
+    "/clientes/pedidos/{id}": {
       "get": {
         "description": "Exibe Pedido ID",
         "parameters": [

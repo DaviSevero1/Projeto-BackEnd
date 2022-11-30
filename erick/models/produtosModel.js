@@ -24,12 +24,7 @@ const produtosSchema = new mongoose.Schema({
     valor:{
         type: Number,
         required: [true, "Valor não informado"],
-        validate:{
-            validator: function(valor) {
-                return /^\d+\.\d{2,2}$/.test(valor)
-            },
-            message:'valor deve ser positivo'
-        }
+        min:[0, 'valor deve ser positivo'],
     },
 
 },{
