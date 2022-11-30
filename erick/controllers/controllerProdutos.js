@@ -13,15 +13,12 @@ async function listar(req, res) {
 }
 
 async function consultar(req, res) {
-  await Produtos.findOne({ _id: ObjectID(req.params.id) })
-    .populate("Produtos")
-    .then((produtos) => {
-      if (produtos) return res.json(produtos);
-      else return res.status(404).json("Produto Não Localizado");
-    })
-    .catch((error) => {
-      return res.status(500).json(error);
-    });
+  await Produtos.findOne({_id: ObjectID(req.params.id)})
+  .then(produto => {
+      if(produto) return res.json(produto);
+      else return res.status(404).json('Contato Não Localizado');
+  })
+  .catch(error => {return res.status(500).json(error) });
 }
 
 async function criar(req, res) {

@@ -5,10 +5,10 @@ const autentica = require('../middlewares/authMiddleware');
 const router = express.Router();
 
 //listar todos os clientes
-router.get('/admin/:id/clientes', autentica, controller.listar);
+router.get('/admin/:id/clientes',  controller.listar);
 
 // consultar um cliente por id
-router.get('/clientes/:id',autentica, controller.consultar);
+router.get('/clientes/:id', controller.consultar);
 
 //registrar um cliente
   router.post('/clientes', controller.registrar);

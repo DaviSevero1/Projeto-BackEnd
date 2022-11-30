@@ -30,13 +30,6 @@ const adminSchema = new mongoose.Schema({
         required : [true,"Precisa ter uma senha valida"],
         trim : true,
         selected : false, 
-        // validate : {
-        //     validator : function(valor) {
-        //         return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/.test(valor)
-        //         // precisa ter pelomenos 1 letra maiuscola, 1 letra minuscula, 1 numero, 1 caracter especial e 8 caracteres, 
-        //     },
-        //     mesage : "Precisa de uma senha forte"
-        // }
     },
 
 },{

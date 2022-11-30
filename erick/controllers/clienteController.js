@@ -11,15 +11,12 @@ async function listar(req, res) {
   }
   
   async function consultar(req, res) {
-    await Clientes.findOne({ _id: ObjectID(req.params.id) })
-      .populate("Clientes")
-      .then((cliente) => {
-        if (cliente) return res.json(cliente);
-        else return res.status(404).json("Cliente Não Localizado");
-      })
-      .catch((error) => {
-        return res.status(500).json(error);
-      });
+    await Clientes.findOne({_id: ObjectID(req.params.id)})
+    .then(cliente => {
+        if(cliente) return res.json(cliente);
+        else return res.status(404).json('Contato Não Localizado');
+    })
+    .catch(error => {return res.status(500).json(error) });
   }
 
   async function registrar(req, res) {

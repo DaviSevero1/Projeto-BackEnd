@@ -1,4 +1,5 @@
 const { ObjectID } = require("bson");
+const enderecos = require("../models/enderecoModel");
 const Enderecos= require("../models/enderecoModel");
 
 async function listar(req, res) {
@@ -12,15 +13,12 @@ async function listar(req, res) {
 }
 
 async function consultar(req, res) {
-  await Enderecos.findOne({ _id: ObjectID(req.params.id) })
-    .populate("Enderecos")
-    .then((enderecos) => {
-      if (enderecos) return res.json(enderecos);
-      else return res.status(404).json("Endereco Não Localizado");
-    })
-    .catch((error) => {
-      return res.status(500).json(error);
-    });
+  await Enderecos.findOne({_id: ObjectID(req.params.id)})
+  .then(endereco => {
+      if(endereco) return res.json(endereco);
+      else return res.status(404).json('Contato Não Localizado');
+  })
+  .catch(error => {return res.status(500).json(error) });
 }
 
 async function criar(req, res) {

@@ -13,6 +13,7 @@ async  function listar(req,res){
 
 
 
+
 async function consultar(req,res){
     await Carrinho.findOne({_id: ObjectID(req.params.id)})
     .then(carrinho => {

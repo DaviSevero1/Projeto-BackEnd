@@ -1,7 +1,5 @@
 const { ObjectID } = require('bson');
-const config =  require("../config/env.json");
-const jwt =  require("jsonwebtoken");
-const bcrypt =require("bcryptjs");
+const config =  require("../config/env.json")
 const Admins = require('../models/adminModel');
 
 async function listar(req, res) {
@@ -15,15 +13,12 @@ async function listar(req, res) {
   }
   
   async function consultar(req, res) {
-    await Admins.findOne({ _id: ObjectID(req.params.id) })
-      .populate("Admins")
-      .then((admin) => {
-        if (admin) return res.json(admin);
-        else return res.status(404).json("Produto Não Localizado");
-      })
-      .catch((error) => {
-        return res.status(500).json(error);
-      });
+    await Admins.findOne({_id: ObjectID(req.params.id)})
+    .then(admin => {
+        if(admin) return res.json(admin);
+        else return res.status(404).json('Contato Não Localizado');
+    })
+    .catch(error => {return res.status(500).json(error) });
   }
 
 async function registrar(req, res) {
